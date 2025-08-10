@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+    <html> 
+        <link rel="apple-touch-icon" href="img/icon.png">
+    <head>  
+        <style> img {width: 100%;} </style>
+        <meta name="apple-mobile-web-app-status-bar-style" content="white">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width">
+        <title> Ks Clone </title>
+        <style>
+            .top {
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                position: fixed;
+                touch-action: none;
+                display: block;
+            }
+
+            .down {
+                width: 100%;
+                bottom: 0px;
+                left: 0px;
+                position: fixed;
+                touch-action: none;
+                display: block;
+            }
+
+            .btn {
+                width: 100%;
+                height: 70px;
+                bottom: 80px;
+                position: fixed;
+                left: 0px;
+                opacity: 0;
+                display: block;
+            }
+
+            .image-preview {
+                position: relative;
+                top: 30px ;
+                image-resolution: 100%;
+                width: auto;
+                min-height: auto;
+                border: 2px solid white;
+                margin-top: 15px;
+                touch-action: pan-x pan-y pinch-zoom ;
+                z-index: -1;
+                display: block;
+                box-shadow: none;
+            }
+
+            .image-preview__image {
+                position: sticky;
+                top: 20%;
+                bottom: 20px;
+                image-resolution: 100dpi;
+                width: 100%;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                color: grey; 
+                touch-action: pan-y ;
+                margin-top: 100px;
+                margin-bottom: 40%;
+                display: block;
+            }
+
+            .popup {
+                top: 150%;
+                border-radius: 10px;
+                position: fixed;
+                left: 0px;
+                visibility: hidden;
+                transition: all 0.5s ease-in-out;
+                display: block;
+            }
+
+            .qrimage {
+                border-radius: 10px;
+                display: block;
+            }
+
+            .close {
+                position: absolute;
+                left: 85%;
+                bottom: 90%;
+                width: 40px;
+                height: 40px;
+                opacity: 0;
+                display: block;
+            }
+
+            .open-popup {
+                visibility: visible;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                width: 100vw;
+                height: 100%;
+                background-color: rgba(0,0,0,0.7); 
+                display: none;
+            }
+
+            .back {
+                position: fixed;
+                top: 0%;
+                width: 40px;
+                left: 0px;
+                height: 40px;
+                z-index: 6;
+                opacity: 0;
+                display: block;
+            }
+
+            .back2 {
+                position: fixed;
+                top: 0%;
+                width: 40px;
+                left: 0px;
+                height: 40px;
+                z-index: -20;
+                opacity: 0;
+                display: block;
+            }
+
+            .back3 {
+                position: fixed;
+                top: 0%;
+                width: 40px;
+                left: 0px;
+                height: 40px;
+                z-index: -20;
+                opacity: 0;
+                display: block;
+            }
+
+            .back4 {
+                position: fixed;
+                top: 0%;
+                width: 40px;
+                left: 0px;
+                height: 40px;
+                z-index: -20;
+                opacity: 0;
+                display: block;
+            }
+
+            .back5 {
+                position: fixed;
+                top: 0%;
+                width: 40px;
+                left: 0px;
+                height: 40px;
+                z-index: -20;
+                opacity: 0;
+                display: block;
+            }
+
+            .back_img {
+                position: fixed;
+                top: 0px;
+                width: 100%;
+                left: -100%;
+                z-index: 20;
+                display: block;
+                transition: all 0.5s ease-in-out;
+                touch-action: pan-y;
+            }
+
+            .back_img2 {
+                position: fixed;
+                top: 0px;
+                width: 100%;
+                left: -100%;
+                z-index: 40;
+                display: block;
+                transition: all 0.5s ease-in-out;
+                touch-action: pan-y;
+            }
+
+            .main_menu {
+                position: fixed;
+                top: 0px;
+                width: 100%;
+                left: -100%;
+                z-index: 60;
+                display: block;
+                transition: all 0.5s ease-in-out;
+                touch-action: pan-y;
+            }
+
+            .bank_img1 {
+                position: fixed;
+                top: 0px;
+                width: 100%;
+                left: -100%;
+                z-index: 80;
+                display: block;
+                transition: all 0.5s ease-in-out;
+                touch-action: pan-y;
+            }
+
+            .bank_img2 {
+                position: fixed;
+                top: 0px;
+                width: 100%;
+                left: -100%;
+                z-index: 100;
+                display: block;
+                transition: all 0.5s ease-in-out;
+                touch-action: pan-y;
+            }
+
+            .id1 {
+                position: absolute;
+                top: 60px;
+                left: 20px;
+                height: 50px;
+                width: 250px;
+                opacity: 0;
+                display: block;
+            }
+
+            .forward {
+                position: fixed;
+                top: 13%;
+                width: 100%;
+                height: 70px;
+                z-index: -20;
+                left: 0px;
+                opacity: 0;
+            }
+
+            .forward2 {
+                position: fixed;
+                top: 13%;
+                width: 100%;
+                height: 70px;
+                z-index: -20;
+                left: 0px;
+                opacity: 0;
+            }
+
+            .forward3 {
+                position: fixed;
+                top: 37%;
+                width: 70px;
+                height: 70px;
+                z-index: -30;
+                opacity: 0;
+                left: 80%;
+            }
+
+            .forward4 {
+                position: fixed;
+                top: 13%;
+                width: 100%;
+                height: 70px;
+                z-index: -20;
+                left: 0px;
+                opacity: 0;
+            }
+
+            .forward5 {
+                position: fixed;
+                top: 13%;
+                width: 100%;
+                height: 70px;
+                z-index: -20;
+                left: 0px;
+                opacity: 0;
+            }
+
+            .bank_btn {
+                position: fixed;
+                top: 20%;
+                left: 25%;
+                width: 23%;
+                height: 12%;
+                z-index: -30;
+                opacity: 0;
+                
+                background-color: transparent;
+                border: none;
+            }
+        </style>
+    </head>
+    <body>
+        <app>
+            <button class="forward" onclick="forwardFunc()"></button>
+            <button class="forward2" onclick="forwardFunc2()"></button>
+            <button class="forward3" onclick="forwardFunc3()"></button>
+            <button class="forward4" ></button>
+            <button class="back4" onclick="forwardFunc4()"></button>
+            <button class="back3" onclick="backFunc3()"></button>
+            <button class="back2" onclick="backFunc2()"></button>
+            <button class="back" onclick="backFunc()"></button>
+            <button class="bank_btn" onclick="openBank()"></button>
+
+            <div class="back_screen"></div>
+                <img src="img/main.png" class="main_menu">
+                <img src="img/back_image1.png" class="back_img">
+                <img src="img/back_image.png" class="back_img2">
+                <img src="img/bank.png" class="bank_img1">
+            
+            <div class="container"> 
+                <img src="img/top.png" alt="" class="top">
+                <div class="main_win">
+                    <input class="id1" type="file" name="inpFile" id="inpFile" accept="image"> 
+                    <div class="image-preview" id="imagePreview">
+                        <img src="" alt="" class="image-preview__image"> 
+                        <!--<span class="image-preview__default_text"> Your ID </span>-->
+                    </div>
+                </div>
+
+                <div class="bottom_btn">
+                    <img src="img/bottom.png" alt="" id="qrclick" class="down">
+                    <button class="btn" onclick="openPopup()"></button>
+                </div>
+
+                <div class="overlay"></div> 
+
+                <div id="popup1" class="popup">
+                    <img src="img/QR.png" class="qrimage">
+                    <button class="close" onclick="closeFunc()"></button>
+                </div>
+
+            <script>
+                const inpFile = document.getElementById("inpFile");
+                const previewContainer = document.getElementById("imagePreview");
+                const previewImage = previewContainer.querySelector(".image-preview__image");
+
+                inpFile.addEventListener("change", function() {
+                    const file = this.files[0];
+
+                    if (file) {
+                        const reader = new FileReader();
+
+                        reader.addEventListener("load", function() {
+                            console.log(this);
+                            previewImage.setAttribute("src", this.result);
+                        });
+
+                        reader.readAsDataURL(file);
+                    }
+                })
+
+                function openPopup() {
+                    document.querySelector('.popup').style.visibility = 'visible';
+                    document.querySelector('.popup').style.top = '50%';
+                    document.querySelector('.overlay').style.display = 'block';
+                }   
+
+                function closeFunc() {
+                    document.querySelector('.popup').style.visibility = 'hidden';
+                    document.querySelector('.overlay').style.display = 'none';
+                    document.querySelector('.popup').style.top = '150%';
+                }    
+
+                function backFunc() {
+                    document.querySelector('.back_img').style.left = '0px';
+                    document.querySelector('.back2').style.zIndex = '30';
+                    document.querySelector('.forward').style.zIndex = '30';
+                }
+
+                function forwardFunc() {
+                    document.querySelector('.back_img').style.left = '-100%';
+                    document.querySelector('.back2').style.zIndex = '-20';
+                    document.querySelector('.forward').style.zIndex = '-20';
+                }
+
+                function backFunc2() {
+                    document.querySelector('.back_img2').style.left = '0px';
+                    document.querySelector('.forward2').style.zIndex = '50';
+                    document.querySelector('.back3').style.zIndex = '50';
+                }
+
+                function forwardFunc2() {
+                    document.querySelector('.back_img2').style.left = '-100%';
+                    document.querySelector('.back3').style.zIndex = '-20';
+                    document.querySelector('.forward2').style.zIndex = '-20';
+                }
+
+                function backFunc3() {
+                    document.querySelector('.main_menu').style.left = '0px';
+                    document.querySelector('.forward3').style.zIndex = '70';
+                    document.querySelector('.back4').style.zIndex = '70';
+                    document.querySelector('.bank_btn').style.zIndex = '70';
+                    document.querySelector('.bank_btn').style.opacity = '1';
+                }
+
+                function forwardFunc3() {
+                    document.querySelector('.main_menu').style.left = '-100%';
+                    document.querySelector('.forward3').style.zIndex = '-30';
+                    document.querySelector('.back4').style.zIndex = '-30';
+                    document.querySelector('.bank_btn').style.zIndex = '-30';
+                    document.querySelector('.bank_btn').style.opacity = '0';
+                }
+
+                // Bank functions
+                function openBank() {
+                    document.querySelector('.bank_img1').style.left = '0px';
+                    document.querySelector('.forward4').style.zIndex = '90';
+                    document.querySelector('.back4').style.zIndex = '90';
+                }
+
+                function forwardFunc4() {
+                    document.querySelector('.bank_img1').style.left = '-100%';
+                    document.querySelector('.back4').style.zIndex = '-20';
+                    document.querySelector('.forward4').style.zIndex = '-20';
+                }
+            </script>
+
+        </div>
+        </app>
+    </body>
+</html>
